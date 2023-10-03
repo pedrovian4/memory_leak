@@ -1,0 +1,17 @@
+version: '3'
+services:
+  chat-server:
+    build:
+      context: ./chat-server
+      dockerfile: Dockerfile
+    volumes:
+      - ./chat-server/memoryused.csv:/app/memoryused.csv
+    ports:
+      - "8080:8080"
+
+  memory_leaking-stress-test-1:
+    build:
+      context: ./stress-test
+      dockerfile: Dockerfile
+    depends_on:
+      - chat-server
